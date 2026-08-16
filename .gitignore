@@ -7,3 +7,5 @@ coverage/
 *.zip
 *.crx
 READY-*/
+store-assets/chrome-web-store/*.png
+store-assets/chrome-web-store/source/raw-captures*/

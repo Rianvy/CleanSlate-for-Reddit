@@ -1,5 +1,7 @@
 # CleanSlate for Reddit
 
+![CleanSlate for Reddit — private, local-first Reddit cleanup](./store-assets/chrome-web-store/final/marquee-promo-1400x560.png)
+
 CleanSlate — бесплатное open-source расширение Manifest V3 для приватной очистки истории Reddit. Оно работает через уже открытую в браузере сессию Reddit: без Client ID, OAuth-формы, внешнего сервера, подписки и аналитики.
 
 [GitHub-репозиторий](https://github.com/Rianvy/CleanSlate-for-Reddit) · [Сообщить о проблеме](https://github.com/Rianvy/CleanSlate-for-Reddit/issues) · [Лицензия MIT](./LICENSE)

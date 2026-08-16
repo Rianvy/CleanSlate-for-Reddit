@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleanSlate Chrome Web Store Screenshots</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+      --bg: #0c0f10;
+      --panel: #151819;
+      --card: #1d2022;
+      --raised: #24282a;
+      --line: #34393c;
+      --text: #f7f8f8;
+      --muted: #a2a9ad;
+      --orange: #ff4500;
+      --orange-2: #ff713d;
+      --green: #46d160;
+      --red: #ff6467;
+      --yellow: #ffd166;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 1280px; height: 800px; margin: 0; overflow: hidden; }
+    body { color: var(--text); background: var(--bg); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 69, 0, .28), transparent 33%),
+        radial-gradient(circle at 95% 85%, rgba(255, 113, 61, .16), transparent 32%),
+        linear-gradient(145deg, #0b0e0f, #111516 58%, #0a0c0d);
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .18;
+      background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    .shot { position: relative; z-index: 1; width: 1280px; height: 800px; display: none; overflow: hidden; }
+    body[data-shot="1"] .shot-1,
+    body[data-shot="2"] .shot-2,
+    body[data-shot="3"] .shot-3,
+    body[data-shot="4"] .shot-4,
+    body[data-shot="5"] .shot-5 { display: flex; }
+    body[data-shot="6"] .promo-small,
+    body[data-shot="7"] .promo-large { display: flex; }
+
+    .orb { position: absolute; border-radius: 50%; filter: blur(1px); }
+    .orb-a { width: 340px; height: 340px; right: -160px; top: -120px; background: rgba(255,69,0,.12); }
+    .orb-b { width: 260px; height: 260px; left: -120px; bottom: -120px; background: rgba(255,113,61,.1); }
+    .grain { position: absolute; inset: 0; opacity: .16; background: radial-gradient(circle, rgba(255,255,255,.22) 0 1px, transparent 1.4px); background-size: 19px 19px; mask-image: linear-gradient(90deg, transparent, black 40%, transparent); }
+
+    .brand-row { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 54px; height: 54px; display: grid; place-items: center; overflow: hidden; background: linear-gradient(145deg, var(--orange), var(--orange-2)); border: 1px solid rgba(255,255,255,.14); border-radius: 17px; box-shadow: 0 14px 34px rgba(255,69,0,.24); }
+    .logo img { width: 54px; height: 54px; object-fit: cover; }
+    .brand-copy strong { display: block; font-size: 20px; letter-spacing: -.45px; }
+    .brand-copy span { color: #ff8b62; font-size: 10px; font-weight: 800; letter-spacing: 1.35px; text-transform: uppercase; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 18px; color: #ff8d65; font-size: 12px; font-weight: 900; letter-spacing: 1.8px; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 9px; height: 9px; background: var(--orange); border-radius: 50%; box-shadow: 0 0 18px rgba(255,69,0,.85); }
+    h1 { max-width: 520px; margin: 0; font-size: 58px; line-height: .98; letter-spacing: -3.6px; }
+    .lead { max-width: 470px; margin: 24px 0 0; color: var(--muted); font-size: 19px; line-height: 1.55; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 27px; }
+    .pill { padding: 9px 13px; color: #d6dadd; background: rgba(255,255,255,.045); border: 1px solid var(--line); border-radius: 999px; font-size: 11px; font-weight: 750; }
+
+    .window { overflow: hidden; background: rgba(18,21,22,.97); border: 1px solid #3a3f42; border-radius: 24px; box-shadow: 0 32px 100px rgba(0,0,0,.65), 0 0 0 1px rgba(255,69,0,.04); }
+    .window-head { height: 82px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; background: linear-gradient(90deg, rgba(255,69,0,.08), transparent 44%), #171a1b; border-bottom: 1px solid var(--line); }
+    .window-brand { display: flex; align-items: center; gap: 12px; }
+    .mini-logo { width: 46px; height: 46px; display: grid; place-items: center; overflow: hidden; background: linear-gradient(145deg, var(--orange), var(--orange-2)); border-radius: 14px; }
+    .mini-logo img { width: 46px; height: 46px; object-fit: cover; }
+    .window-title strong { display: block; font-size: 16px; letter-spacing: -.3px; }
+    .window-title span { color: var(--muted); font-size: 9px; }
+    .head-badge { padding: 8px 11px; color: #cdeed3; background: rgba(70,209,96,.09); border: 1px solid rgba(70,209,96,.3); border-radius: 999px; font-size: 9px; font-weight: 800; }
+    .head-badge i { display: inline-block; width: 7px; height: 7px; margin-right: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px rgba(70,209,96,.65); }
+    .window-body { padding: 20px; }
+    .section-title { display: flex; align-items: center; gap: 9px; margin-bottom: 13px; }
+    .step { color: #ff8b62; font-size: 9px; font-weight: 950; letter-spacing: .8px; }
+    .section-title strong { font-size: 15px; }
+    .choice-grid { display: grid; gap: 7px; }
+    .choice { min-height: 53px; display: grid; grid-template-columns: 26px 10px 1fr auto; align-items: center; gap: 9px; padding: 8px 11px; color: #c8cdd0; background: var(--card); border: 1px solid transparent; border-radius: 11px; }
+    .choice.on { color: #fff; background: rgba(255,69,0,.08); border-color: rgba(255,69,0,.43); }
+    .choice .num { color: #747c80; font-size: 9px; font-weight: 850; }
+    .choice .dot { width: 8px; height: 8px; background: #687075; border-radius: 50%; }
+    .choice.on .dot { background: var(--orange); box-shadow: 0 0 10px rgba(255,69,0,.58); }
+    .choice b { display: block; font-size: 11px; }
+    .choice small { display: block; margin-top: 1px; color: #7f878b; font-size: 8px; }
+    .choice .check { width: 18px; height: 18px; display: grid; place-items: center; color: #fff; background: var(--orange); border-radius: 6px; font-size: 10px; font-weight: 900; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .field { display: grid; gap: 5px; }
+    .field.wide { grid-column: 1 / -1; }
+    .field span { color: #9da4a8; font-size: 8px; font-weight: 850; letter-spacing: .7px; text-transform: uppercase; }
+    .input { height: 38px; display: flex; align-items: center; padding: 0 11px; color: #d3d6d8; background: #202426; border: 1px solid #353a3d; border-radius: 9px; font-size: 10px; }
+    .primary { height: 44px; display: flex; align-items: center; justify-content: center; gap: 12px; color: #fff; background: linear-gradient(135deg, var(--orange), var(--orange-2)); border-radius: 12px; box-shadow: 0 12px 28px rgba(255,69,0,.2); font-size: 11px; font-weight: 900; }
+
+    .shot-1 { align-items: center; padding: 58px 66px; }
+    .shot-1 .copy { width: 43%; padding: 0 36px 0 8px; }
+    .shot-1 .brand-row { position: absolute; left: 74px; top: 52px; }
+    .shot-1 .copy-inner { margin-top: 93px; }
+    .shot-1 .window { position: absolute; right: 52px; top: 124px; width: 680px; height: 552px; transform: perspective(1500px) rotateY(-2.2deg) rotateX(.7deg); transform-origin: center; }
+    .shot-1 .window-body { display: grid; grid-template-columns: .82fr 1.18fr; gap: 14px; }
+    .surface { padding: 16px; background: rgba(28,32,34,.96); border: 1px solid var(--line); border-radius: 16px; }
+    .scan-button { grid-column: 1 / -1; margin-top: 1px; }
+
+    .shot-2 { flex-direction: column; padding: 46px 64px 48px; }
+    .topline { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 25px; }
+    .topline h1 { max-width: 650px; font-size: 48px; }
+    .topline .lead { max-width: 390px; margin: 0 0 4px; font-size: 16px; text-align: right; }
+    .shot-2 .window { height: 594px; }
+    .shot-2 .window-head { height: 72px; }
+    .review-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+    .review-head h2 { margin: 0; font-size: 21px; letter-spacing: -.5px; }
+    .review-head p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+    .actions { display: flex; gap: 7px; }
+    .ghost { padding: 8px 11px; color: #c8cdd0; background: var(--raised); border: 1px solid var(--line); border-radius: 9px; font-size: 9px; font-weight: 800; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; background: #181b1d; border: 1px solid var(--line); border-radius: 14px; }
+    thead { background: #222628; }
+    th { padding: 10px 12px; color: #8d9599; text-align: left; font-size: 8px; letter-spacing: .7px; text-transform: uppercase; }
+    td { padding: 11px 12px; border-top: 1px solid #2f3437; font-size: 10px; }
+    td:first-child { width: 36px; }
+    td strong { display: block; max-width: 600px; overflow: hidden; color: #f2f4f5; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    td small { display: block; margin-top: 3px; color: #7f888c; font-size: 8px; }
+    .checkbox { width: 17px; height: 17px; display: grid; place-items: center; color: #fff; background: var(--orange); border-radius: 5px; font-size: 9px; font-weight: 900; }
+    .badge { display: inline-flex; padding: 5px 8px; border-radius: 999px; font-size: 8px; font-weight: 900; }
+    .badge.delete { color: #ffb4b0; background: rgba(255,100,103,.13); }
+    .badge.unsave { color: #ffe0a0; background: rgba(255,209,102,.12); }
+    .badge.unvote { color: #ffae90; background: rgba(255,69,0,.13); }
+    .confirm-bar { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 18px; margin-top: 14px; padding: 13px 15px; background: rgba(255,69,0,.07); border: 1px solid rgba(255,69,0,.25); border-radius: 13px; }
+    .confirm-copy strong { display: block; font-size: 10px; }
+    .confirm-copy span { color: var(--muted); font-size: 8px; }
+    .run-button { padding: 11px 16px; color: #fff; background: linear-gradient(135deg, var(--orange), var(--orange-2)); border-radius: 10px; font-size: 9px; font-weight: 900; }
+
+    .shot-3 { align-items: center; padding: 56px 66px; }
+    .shot-3 .copy { width: 39%; padding-right: 38px; }
+    .shot-3 .copy h1 { font-size: 52px; }
+    .shot-3 .window { width: 735px; height: 682px; }
+    .progress-body { height: 600px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 26px; text-align: center; }
+    .progress-box { width: 190px; height: 104px; display: grid; place-items: center; color: #fff; background: linear-gradient(145deg, var(--orange), var(--orange-2)); border-radius: 23px; box-shadow: 0 20px 48px rgba(255,69,0,.27); font-size: 36px; font-weight: 950; letter-spacing: -1.5px; }
+    .progress-body h2 { margin: 20px 0 5px; font-size: 24px; }
+    .current { max-width: 470px; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .rate-warning { width: 540px; display: flex; align-items: center; gap: 13px; margin: 18px 0; padding: 13px 15px; color: #ffd8ca; text-align: left; background: rgba(255,69,0,.11); border: 1px solid rgba(255,69,0,.44); border-radius: 14px; }
+    .warning-icon { width: 32px; height: 32px; display: grid; flex: 0 0 auto; place-items: center; color: #fff; background: var(--orange); border-radius: 10px; font-size: 17px; font-weight: 950; }
+    .rate-warning strong { display: block; font-size: 10px; }
+    .rate-warning span { display: block; margin-top: 2px; color: #ffb79d; font-size: 9px; }
+    .track { width: 540px; height: 10px; overflow: hidden; background: #303537; border-radius: 999px; }
+    .track i { display: block; width: 68%; height: 100%; background: linear-gradient(90deg, var(--orange), #ff9a74); border-radius: inherit; }
+    .metrics { width: 540px; display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-top: 17px; }
+    .metric { padding: 13px; background: var(--card); border: 1px solid var(--line); border-radius: 13px; }
+    .metric b { display: block; font-size: 20px; }
+    .metric span { color: var(--muted); font-size: 8px; font-weight: 850; letter-spacing: .5px; text-transform: uppercase; }
+    .metric.success b { color: var(--green); }
+    .metric.failed b { color: var(--red); }
+    .queue-buttons { display: flex; gap: 8px; margin-top: 16px; }
+    .queue-buttons span { padding: 9px 17px; color: #cdd1d3; background: var(--raised); border: 1px solid var(--line); border-radius: 10px; font-size: 9px; font-weight: 850; }
+
+    .shot-4 { flex-direction: column; padding: 48px 64px; }
+    .shot-4 .topline { margin-bottom: 30px; }
+    .shot-4 .topline h1 { max-width: 760px; }
+    .hide-stage { flex: 1; display: grid; grid-template-columns: 1fr 110px 1fr; align-items: center; gap: 24px; }
+    .post-card { position: relative; height: 470px; overflow: hidden; padding: 22px; background: linear-gradient(180deg, #1c2022, #151819); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 30px 70px rgba(0,0,0,.32); }
+    .post-meta { display: flex; align-items: center; justify-content: space-between; color: #9fa6aa; font-size: 10px; }
+    .avatar { width: 34px; height: 34px; display: inline-grid; place-items: center; margin-right: 9px; color: #fff; background: linear-gradient(145deg, #6558ff, #9a65ff); border-radius: 50%; font-weight: 900; }
+    .post-card h2 { margin: 22px 0 10px; font-size: 25px; letter-spacing: -.7px; }
+    .post-card p { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .post-media { height: 190px; margin-top: 18px; background: radial-gradient(circle at 70% 20%, rgba(255,139,98,.32), transparent 28%), linear-gradient(145deg, #293033, #171a1c); border: 1px solid #33393c; border-radius: 16px; }
+    .post-actions { position: absolute; left: 22px; right: 22px; bottom: 21px; display: flex; align-items: center; gap: 9px; }
+    .vote { padding: 9px 12px; color: #ff9d7a; background: rgba(255,69,0,.12); border: 1px solid rgba(255,69,0,.3); border-radius: 999px; font-size: 10px; font-weight: 900; }
+    .hide { margin-left: auto; padding: 9px 13px; color: #d4d7d9; background: var(--raised); border: 1px solid var(--line); border-radius: 999px; font-size: 10px; font-weight: 850; }
+    .arrow { display: grid; place-items: center; }
+    .arrow-circle { width: 74px; height: 74px; display: grid; place-items: center; color: #fff; background: linear-gradient(145deg, var(--orange), var(--orange-2)); border-radius: 24px; box-shadow: 0 18px 45px rgba(255,69,0,.25); font-size: 31px; font-weight: 900; }
+    .action-card { height: 470px; display: flex; flex-direction: column; padding: 30px; background: linear-gradient(180deg, rgba(255,69,0,.09), rgba(21,24,25,.96)); border: 1px solid rgba(255,69,0,.38); border-radius: 24px; box-shadow: 0 30px 70px rgba(0,0,0,.32); }
+    .action-icon { width: 72px; height: 72px; display: grid; place-items: center; color: #fff; background: linear-gradient(145deg, var(--orange), var(--orange-2)); border-radius: 22px; font-size: 30px; font-weight: 950; }
+    .action-card h2 { margin: 28px 0 9px; font-size: 29px; letter-spacing: -.9px; }
+    .action-card > p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .toggle { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; padding: 15px; background: #1b1f20; border: 1px solid var(--line); border-radius: 14px; }
+    .toggle strong { display: block; font-size: 11px; }
+    .toggle small { color: var(--muted); font-size: 9px; }
+    .switch { width: 42px; height: 24px; padding: 3px; background: var(--orange); border-radius: 999px; }
+    .switch i { display: block; width: 18px; height: 18px; margin-left: 18px; background: #fff; border-radius: 50%; }
+    .sequence { display: grid; gap: 8px; margin-top: auto; }
+    .sequence span { display: flex; align-items: center; gap: 10px; color: #d6dadd; font-size: 11px; }
+    .sequence b { width: 24px; height: 24px; display: grid; place-items: center; color: #fff; background: rgba(255,69,0,.16); border: 1px solid rgba(255,69,0,.34); border-radius: 8px; font-size: 9px; }
+
+    .shot-5 { align-items: center; justify-content: center; padding: 52px 70px; text-align: center; }
+    .shot-5 .content { width: 100%; }
+    .shot-5 .brand-row { justify-content: center; margin-bottom: 27px; }
+    .shot-5 h1 { max-width: 840px; margin: 0 auto; font-size: 55px; }
+    .shot-5 .lead { max-width: 680px; margin: 20px auto 28px; }
+    .privacy-grid { max-width: 1010px; display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 0 auto; }
+    .privacy-card { min-height: 170px; padding: 22px 17px; background: rgba(27,31,33,.9); border: 1px solid var(--line); border-radius: 19px; }
+    .privacy-card .icon { width: 44px; height: 44px; display: grid; place-items: center; margin: 0 auto 14px; color: #fff; background: rgba(255,69,0,.14); border: 1px solid rgba(255,69,0,.35); border-radius: 14px; font-size: 19px; font-weight: 950; }
+    .privacy-card strong { display: block; font-size: 13px; }
+    .privacy-card span { display: block; margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+    .github-bar { max-width: 720px; height: 58px; display: flex; align-items: center; justify-content: center; gap: 12px; margin: 22px auto 0; color: #f1f3f4; background: #1c2022; border: 1px solid #3b4144; border-radius: 16px; font-size: 12px; font-weight: 800; }
+    .github-bar b { color: #ff8b62; font-size: 13px; }
+    .fineprint { margin-top: 17px; color: #747c80; font-size: 9px; }
+
+    .promo { position: relative; z-index: 1; display: none; overflow: hidden; color: var(--text); background: radial-gradient(circle at 0% 0%, rgba(255,69,0,.28), transparent 42%), linear-gradient(145deg, #0b0e0f, #121617 65%, #0b0d0e); }
+    .promo::before { content: ""; position: absolute; inset: 0; opacity: .17; background-image: radial-gradient(circle, rgba(255,255,255,.24) 0 1px, transparent 1.3px); background-size: 17px 17px; mask-image: linear-gradient(90deg, black, transparent 72%); }
+    .promo > * { position: relative; z-index: 1; }
+    .promo-small { width: 440px; height: 280px; align-items: center; padding: 24px 25px; }
+    .promo-small .small-copy { width: 246px; }
+    .promo-small .brand-row { gap: 8px; margin-bottom: 20px; }
+    .promo-small .logo { width: 38px; height: 38px; border-radius: 12px; }
+    .promo-small .logo img { width: 38px; height: 38px; }
+    .promo-small .brand-copy strong { font-size: 13px; letter-spacing: -.2px; }
+    .promo-small .brand-copy span { font-size: 6px; letter-spacing: .9px; }
+    .promo-small h2 { margin: 0; font-size: 31px; line-height: .98; letter-spacing: -1.7px; }
+    .promo-small p { margin: 13px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }
+    .small-badge { display: inline-flex; margin-top: 15px; padding: 7px 10px; color: #fff; background: linear-gradient(135deg, var(--orange), var(--orange-2)); border-radius: 999px; font-size: 7px; font-weight: 900; letter-spacing: .35px; text-transform: uppercase; }
+    .small-widget { position: absolute; right: 24px; width: 135px; height: 211px; padding: 13px; background: rgba(20,23,24,.97); border: 1px solid #3a3f42; border-radius: 18px; box-shadow: 0 22px 55px rgba(0,0,0,.5); transform: rotate(2deg); }
+    .small-widget-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .small-widget-head b { font-size: 8px; }
+    .small-widget-head i { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px rgba(70,209,96,.7); }
+    .small-choice { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; padding: 8px; color: #d6dadd; background: #202426; border: 1px solid #34393c; border-radius: 8px; font-size: 7px; font-weight: 800; }
+    .small-choice span { width: 13px; height: 13px; display: grid; place-items: center; color: #fff; background: var(--orange); border-radius: 4px; font-size: 7px; }
+    .small-scan { height: 27px; display: grid; place-items: center; margin-top: 10px; color: #fff; background: linear-gradient(135deg, var(--orange), var(--orange-2)); border-radius: 7px; font-size: 7px; font-weight: 900; }
+
+    .promo-large { width: 1400px; height: 560px; align-items: center; padding: 52px 64px; }
+    .promo-large .large-copy { width: 49%; }
+    .promo-large .brand-row { margin-bottom: 45px; }
+    .promo-large h2 { max-width: 610px; margin: 0; font-size: 60px; line-height: .96; letter-spacing: -3.5px; }
+    .promo-large p { max-width: 540px; margin: 21px 0 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
+    .large-pills { display: flex; gap: 9px; margin-top: 25px; }
+    .large-pills span { padding: 9px 12px; color: #d7dbdd; background: rgba(255,255,255,.045); border: 1px solid var(--line); border-radius: 999px; font-size: 9px; font-weight: 800; }
+    .large-widget { position: absolute; right: 54px; width: 655px; height: 468px; overflow: hidden; background: rgba(18,21,22,.98); border: 1px solid #3b4043; border-radius: 24px; box-shadow: 0 34px 95px rgba(0,0,0,.62); transform: perspective(1500px) rotateY(-2deg); }
+    .large-widget-head { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 19px; background: linear-gradient(90deg, rgba(255,69,0,.09), transparent 50%), #181b1c; border-bottom: 1px solid var(--line); }
+    .large-widget .window-brand { gap: 10px; }
+    .large-widget .mini-logo, .large-widget .mini-logo img { width: 42px; height: 42px; }
+    .large-widget .mini-logo { border-radius: 13px; }
+    .large-widget-body { display: grid; grid-template-columns: .78fr 1.22fr; gap: 11px; padding: 16px; }
+    .large-widget .surface { padding: 14px; border-radius: 14px; }
+    .large-widget .choice { min-height: 44px; grid-template-columns: 21px 8px 1fr auto; padding: 7px 9px; }
+    .large-widget .choice b { font-size: 9px; }
+    .large-widget .choice small { font-size: 7px; }
+    .large-widget .field-grid { gap: 8px; }
+    .large-widget .input { height: 34px; font-size: 8px; }
+    .large-widget .primary { grid-column: 1 / -1; height: 39px; font-size: 9px; }
+  </style>
+</head>
+<body data-shot="1">
+  <div class="shot shot-1">
+    <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="grain"></div>
+    <div class="brand-row">
+      <span class="logo"><img src="../../../public/icon-128.png" alt="" /></span>
+      <span class="brand-copy"><strong>CleanSlate for Reddit</strong><span>Local-first cleanup</span></span>
+    </div>
+    <section class="copy"><div class="copy-inner">
+      <span class="eyebrow">Private Reddit cleanup</span>
+      <h1>A clean slate for your Reddit history.</h1>
+      <p class="lead">Review and clean posts, comments, saved items, upvotes, and downvotes—directly in your browser.</p>
+      <div class="pill-row"><span class="pill">No subscription</span><span class="pill">No external server</span><span class="pill">Open source</span></div>
+    </div></section>
+    <section class="window">
+      <header class="window-head">
+        <div class="window-brand"><span class="mini-logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="window-title"><strong>CleanSlate for Reddit</strong><span>Your Reddit history, on your terms.</span></span></div>
+        <span class="head-badge"><i></i>u/clean_user</span>
+      </header>
+      <div class="window-body">
+        <div class="surface">
+          <div class="section-title"><span class="step">01</span><strong>What should be cleaned?</strong></div>
+          <div class="choice-grid">
+            <div class="choice on"><span class="num">01</span><span class="dot"></span><span><b>Posts</b><small>Delete</small></span><span class="check">✓</span></div>
+            <div class="choice on"><span class="num">02</span><span class="dot"></span><span><b>Comments</b><small>Delete</small></span><span class="check">✓</span></div>
+            <div class="choice on"><span class="num">03</span><span class="dot"></span><span><b>Saved</b><small>Unsave</small></span><span class="check">✓</span></div>
+            <div class="choice on"><span class="num">04</span><span class="dot"></span><span><b>Upvotes</b><small>Remove vote</small></span><span class="check">✓</span></div>
+            <div class="choice"><span class="num">05</span><span class="dot"></span><span><b>Downvotes</b><small>Remove vote</small></span></div>
+          </div>
+        </div>
+        <div class="surface">
+          <div class="section-title"><span class="step">02</span><strong>Filters</strong></div>
+          <div class="field-grid">
+            <div class="field wide"><span>Text contains</span><div class="input">privacy checklist</div></div>
+            <div class="field"><span>Only subreddits</span><div class="input">privacy, technology</div></div>
+            <div class="field"><span>Exclude subreddits</span><div class="input">favorites</div></div>
+            <div class="field"><span>Score range · Min</span><div class="input">0</div></div>
+            <div class="field"><span>Score range · Max</span><div class="input">500</div></div>
+            <div class="field"><span>After date</span><div class="input">Jan 1, 2023</div></div>
+            <div class="field"><span>Before date</span><div class="input">Today</div></div>
+            <div class="field wide"><span>Content</span><div class="input">✓ Include NSFW</div></div>
+          </div>
+        </div>
+        <div class="primary scan-button">Scan Reddit <span>→</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="shot shot-2">
+    <div class="orb orb-a"></div><div class="orb orb-b"></div>
+    <div class="topline">
+      <div><span class="eyebrow">Nothing happens by surprise</span><h1>Review every action before cleanup.</h1></div>
+      <p class="lead">Filter, select, and export your list before making any change to your Reddit history.</p>
+    </div>
+    <section class="window">
+      <header class="window-head">
+        <div class="window-brand"><span class="mini-logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="window-title"><strong>CleanSlate for Reddit</strong><span>Local history workspace</span></span></div>
+        <span class="head-badge"><i></i>248 items found</span>
+      </header>
+      <div class="window-body">
+        <div class="review-head"><div><h2>Review every action</h2><p><b>248</b> items found · <b>241</b> selected</p></div><div class="actions"><span class="ghost">Select all</span><span class="ghost">Select none</span><span class="ghost">Export JSON</span><span class="ghost">Export CSV</span></div></div>
+        <table>
+          <thead><tr><th></th><th>Item</th><th>Action</th><th>Score</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td><span class="checkbox">✓</span></td><td><strong>A practical privacy checklist for everyday browsing</strong><small>r/privacy · Posts</small></td><td><span class="badge delete">Delete</span></td><td>128</td><td>May 18, 2024</td></tr>
+            <tr><td><span class="checkbox">✓</span></td><td><strong>My notes after switching to a local-first workflow</strong><small>r/technology · Comments</small></td><td><span class="badge delete">Delete</span></td><td>42</td><td>Mar 07, 2024</td></tr>
+            <tr><td><span class="checkbox">✓</span></td><td><strong>TypeScript performance guide for modern browser extensions</strong><small>r/webdev · Saved</small></td><td><span class="badge unsave">Unsave</span></td><td>914</td><td>Jan 22, 2024</td></tr>
+            <tr><td><span class="checkbox">✓</span></td><td><strong>A simple guide to understanding browser permissions</strong><small>r/chrome · Upvotes</small></td><td><span class="badge unvote">Unvote + hide</span></td><td>307</td><td>Nov 09, 2023</td></tr>
+            <tr><td><span class="checkbox">✓</span></td><td><strong>Weekend project: organize your digital footprint</strong><small>r/productivity · Upvotes</small></td><td><span class="badge unvote">Unvote + hide</span></td><td>76</td><td>Sep 14, 2023</td></tr>
+          </tbody>
+        </table>
+        <div class="confirm-bar"><span class="confirm-copy"><strong>Ready when you are</strong><span>Deleted posts and comments cannot be restored. Destructive actions require confirmation.</span></span><span class="run-button">Run selected actions · 241</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="shot shot-3">
+    <div class="orb orb-a"></div><div class="orb orb-b"></div>
+    <section class="copy">
+      <span class="eyebrow">Built for long cleanups</span>
+      <h1>Safe, paced, and easy to control.</h1>
+      <p class="lead">Pause or stop at any time. When Reddit applies a rate limit, CleanSlate waits and resumes automatically.</p>
+      <div class="pill-row"><span class="pill">Automatic retry</span><span class="pill">Live progress</span><span class="pill">Precise results</span></div>
+    </section>
+    <section class="window">
+      <header class="window-head"><div class="window-brand"><span class="mini-logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="window-title"><strong>CleanSlate for Reddit</strong><span>Cleanup queue</span></span></div><span class="head-badge"><i></i>Session active</span></header>
+      <div class="progress-body">
+        <div class="progress-box">68%</div>
+        <h2>Cleanup in progress</h2>
+        <span class="current">A practical privacy checklist for everyday browsing</span>
+        <div class="rate-warning"><span class="warning-icon">!</span><span><strong>Reddit rate limit reached</strong><span>Actions are paused to avoid new errors. Retrying automatically in 2 min.</span></span></div>
+        <div class="track"><i></i></div>
+        <div class="metrics"><div class="metric"><b>164</b><span>Completed</span></div><div class="metric success"><b>164</b><span>Succeeded</span></div><div class="metric failed"><b>0</b><span>Failed</span></div></div>
+        <div class="queue-buttons"><span>Pause</span><span>Stop</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="shot shot-4">
+    <div class="orb orb-a"></div><div class="orb orb-b"></div>
+    <div class="topline"><div><span class="eyebrow">More than removing a vote</span><h1>Unvote it. Hide it. Move on.</h1></div><p class="lead">Optionally use Reddit’s native Hide action after removing an upvote or downvote from a post.</p></div>
+    <div class="hide-stage">
+      <article class="post-card">
+        <div class="post-meta"><span><span class="avatar">P</span>r/privacy · 8 months ago</span><span>•••</span></div>
+        <h2>A practical privacy checklist for everyday browsing</h2>
+        <p>A saved post still remains visible after a vote is removed. CleanSlate can hide it in the same cleanup sequence.</p>
+        <div class="post-media"></div>
+        <div class="post-actions"><span class="vote">▲ 128</span><span class="hide">Hide</span></div>
+      </article>
+      <div class="arrow"><span class="arrow-circle">→</span></div>
+      <article class="action-card">
+        <span class="action-icon">✓</span>
+        <h2>Remove vote + hide</h2>
+        <p>One optional workflow, using Reddit’s own actions. Comments are only unvoted because Reddit supports hiding posts, not comments.</p>
+        <div class="toggle"><span><strong>Hide posts after removing the vote</strong><small>Uses Reddit’s native Hide action</small></span><span class="switch"><i></i></span></div>
+        <div class="sequence"><span><b>01</b>Remove the upvote or downvote</span><span><b>02</b>Hide the post from your listings</span></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="shot shot-5">
+    <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="grain"></div>
+    <section class="content">
+      <div class="brand-row"><span class="logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="brand-copy"><strong>CleanSlate for Reddit</strong><span>Privacy first · Open source</span></span></div>
+      <span class="eyebrow">Your data stays yours</span>
+      <h1>Local-first by design. Open source by choice.</h1>
+      <p class="lead">CleanSlate uses your existing Reddit session and communicates only with Reddit domains. No account setup, analytics, subscription, or external backend.</p>
+      <div class="privacy-grid">
+        <div class="privacy-card"><span class="icon">⌂</span><strong>Runs locally</strong><span>Preview data remains in the browser tab during your cleanup session.</span></div>
+        <div class="privacy-card"><span class="icon">×</span><strong>No analytics</strong><span>No tracking, telemetry, advertising, or behavioral profiling.</span></div>
+        <div class="privacy-card"><span class="icon">↔</span><strong>Reddit only</strong><span>Network access is limited to HTTPS pages and APIs on Reddit domains.</span></div>
+        <div class="privacy-card"><span class="icon">&lt;/&gt;</span><strong>Open source</strong><span>Inspect, audit, and contribute to the project under the MIT License.</span></div>
+      </div>
+      <div class="github-bar"><b>&lt;/&gt;</b> github.com/Rianvy/CleanSlate-for-Reddit <b>↗</b></div>
+      <div class="fineprint">CleanSlate for Reddit is an independent project and is not affiliated with Reddit, Inc.</div>
+    </section>
+  </div>
+
+  <div class="promo promo-small">
+    <section class="small-copy">
+      <div class="brand-row"><span class="logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="brand-copy"><strong>CleanSlate for Reddit</strong><span>Private cleanup</span></span></div>
+      <h2>Clean your Reddit history.</h2>
+      <p>Review posts, comments, saved items, and votes—right in your browser.</p>
+      <span class="small-badge">Local · Free · Open source</span>
+    </section>
+    <section class="small-widget">
+      <div class="small-widget-head"><b>Choose what to clean</b><i></i></div>
+      <div class="small-choice">Posts <span>✓</span></div>
+      <div class="small-choice">Comments <span>✓</span></div>
+      <div class="small-choice">Saved <span>✓</span></div>
+      <div class="small-choice">Votes <span>✓</span></div>
+      <div class="small-scan">Scan Reddit →</div>
+    </section>
+  </div>
+
+  <div class="promo promo-large">
+    <section class="large-copy">
+      <div class="brand-row"><span class="logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="brand-copy"><strong>CleanSlate for Reddit</strong><span>Local-first cleanup · Open source</span></span></div>
+      <h2>Take control of your Reddit history.</h2>
+      <p>Scan, review, and clean your own posts, comments, saved items, upvotes, and downvotes—with no subscription or external server.</p>
+      <div class="large-pills"><span>Preview every action</span><span>Automatic rate-limit handling</span><span>Privacy first</span></div>
+    </section>
+    <section class="large-widget">
+      <header class="large-widget-head"><div class="window-brand"><span class="mini-logo"><img src="../../../public/icon-128.png" alt="" /></span><span class="window-title"><strong>CleanSlate for Reddit</strong><span>Your Reddit history, on your terms.</span></span></div><span class="head-badge"><i></i>Session active</span></header>
+      <div class="large-widget-body">
+        <div class="surface">
+          <div class="section-title"><span class="step">01</span><strong>Choose what to clean</strong></div>
+          <div class="choice-grid">
+            <div class="choice on"><span class="num">01</span><span class="dot"></span><span><b>Posts</b><small>Delete</small></span><span class="check">✓</span></div>
+            <div class="choice on"><span class="num">02</span><span class="dot"></span><span><b>Comments</b><small>Delete</small></span><span class="check">✓</span></div>
+            <div class="choice on"><span class="num">03</span><span class="dot"></span><span><b>Saved</b><small>Unsave</small></span><span class="check">✓</span></div>
+            <div class="choice on"><span class="num">04</span><span class="dot"></span><span><b>Votes</b><small>Remove + hide</small></span><span class="check">✓</span></div>
+          </div>
+        </div>
+        <div class="surface">
+          <div class="section-title"><span class="step">02</span><strong>Set your filters</strong></div>
+          <div class="field-grid">
+            <div class="field wide"><span>Text contains</span><div class="input">privacy checklist</div></div>
+            <div class="field"><span>Only subreddits</span><div class="input">privacy</div></div>
+            <div class="field"><span>Score range</span><div class="input">0 — 500</div></div>
+            <div class="field"><span>After date</span><div class="input">Jan 1, 2023</div></div>
+            <div class="field"><span>Before date</span><div class="input">Today</div></div>
+            <div class="field wide"><span>Content</span><div class="input">✓ Include NSFW</div></div>
+          </div>
+        </div>
+        <div class="primary">Scan Reddit <span>→</span></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const requestedShot = new URLSearchParams(window.location.search).get('shot');
+    document.body.dataset.shot = ['1', '2', '3', '4', '5', '6', '7'].includes(requestedShot) ? requestedShot : '1';
+    const renderScale = Number(new URLSearchParams(window.location.search).get('scale') || '1');
+    if (renderScale > 1) {
+      const logicalSize = requestedShot === '6'
+        ? { width: 440, height: 280 }
+        : requestedShot === '7'
+          ? { width: 1400, height: 560 }
+          : { width: 1280, height: 800 };
+      document.documentElement.style.width = `${logicalSize.width * renderScale}px`;
+      document.documentElement.style.height = `${logicalSize.height * renderScale}px`;
+      document.body.style.width = `${logicalSize.width * renderScale}px`;
+      document.body.style.height = `${logicalSize.height * renderScale}px`;
+      document.querySelectorAll('.shot, .promo').forEach((element) => {
+        element.style.transform = `scale(${renderScale})`;
+        element.style.transformOrigin = 'top left';
+      });
+    }
+  </script>
+</body>
+</html>
