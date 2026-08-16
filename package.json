@@ -1,0 +1,47 @@
+{
+  "name": "cleanslate-for-reddit",
+  "version": "0.6.0",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/Rianvy/CleanSlate-for-Reddit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rianvy/CleanSlate-for-Reddit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rianvy/CleanSlate-for-Reddit/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "npm run icons && wxt build",
+    "build:firefox": "npm run icons && wxt build -b firefox",
+    "zip": "npm run icons && wxt zip",
+    "zip:firefox": "npm run icons && wxt zip -b firefox",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "icons": "node scripts/generate-icons.mjs",
+    "prepare": "wxt prepare"
+  },
+  "dependencies": {
+    "@wxt-dev/module-react": "^1.2.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "wxt": "^0.21.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "eslint": "^10.8.1",
+    "globals": "^17.11.0",
+    "sharp": "^0.35.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.67.0",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  }
+}

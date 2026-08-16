@@ -1,0 +1,9 @@
+node_modules/
+.output/
+.wxt/
+.env.local
+.env.*.local
+coverage/
+*.zip
+*.crx
+READY-*/
