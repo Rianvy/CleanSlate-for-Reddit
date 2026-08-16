@@ -8,7 +8,6 @@ export default defineConfig({
     short_name: 'CleanSlate',
     homepage_url: 'https://github.com/Rianvy/CleanSlate-for-Reddit',
     default_locale: 'en',
-    permissions: ['storage'],
     host_permissions: ['https://*.reddit.com/*'],
     icons: {
       16: 'icon-16.png',
